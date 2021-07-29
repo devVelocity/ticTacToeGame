@@ -1,0 +1,9 @@
+{
+    "compilerOptions": {
+        "target": "ES2017",
+        "watch": true,
+        "lib": ["es2015","DOM","es2017"],
+        "alwaysStrict": false,
+    }
+
+}

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../CSS/css-styling.css">
+    <title>Tic Tac Toe</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Press+Start+2P">
+    <script defer src="../TS/game.js"></script>
+    <script defer src="../TS/ui.js"></script>
+</head>
+<body>
+    <div class="main-screen-outer-container" id="main-screen-outer-container">
+        <div id="main-screen-inner-container">
+            <div class="main-screen-container" id="main-screen-box-container">
+                <div class="main-screen-box" id="main-screen-box">
+                    <span>
+                    </span>
+                    <div class="main-screen-box-interior" id="main-screen-box-title">
+                        <h1>Tic Tac Toe</h1>
+                        <h3>Get 3 X's or 3 O's in a row to win!</h3>
+                        <hr>
+                        <br style="margin-top: 40px;">
+                        <a class="button-1" href="javascript:void[0]" onclick="selection()">Play</a>
+                        <a class="button-1" href="javascript:void[0]" onclick="showSettings()">Settings</a>
+                    </div>
+                </div>  
+            </div>
+            <div class="main-screen-container" id="main-screen-selection">
+                <div class="main-screen-box">
+                    <span>
+                    </span>
+                    <div class="main-screen-box-interior" id="main-screen-box-title">
+                        <h1>Player 1</h1>
+                        <h3>Select O or X for Player 1<br>For other settings, Go Back</h3>
+                        <br style="margin-top: 5px;">
+                        <div class="selection-wrapper">
+                            <button onclick="selectPlayer(1)"></button>
+                            <button onclick="selectPlayer(2)"></button>
+                        </div>
+                        <a href="javascript:void[0]" class="button-1" onclick="selectionBack()"><-- Back</a>
+                        <br style="margin-bottom: 15px;">
+                    </div>
+                </div> 
+            </div>
+            <div class="main-screen-container" id="main-screen-ending-screen">
+                <div class="main-screen-box">
+                    <span></span>
+                    <div class="main-screen-box-interior" id="main-screen-box-ending-interior">
+                        <h1 id="ending-winner-display">Player (X) Wins!</h1>
+                        <!-- <h3>Want to play again?</h3> -->
+                        <hr style="margin-bottom: 20px;">
+                        <a href="javascript:void[0]" class="button-1" onclick="playAgain()">Play Again</a>
+                        <a href="javascript:void[0]" class="button-1" onclick="backToMenu()">Back to Menu</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+    
+    <div class="main-screen-settings" id="main-screen-settings">
+        <div class="main-screen-settings-container">
+            <div class="main-screen-settings-content">
+                <a id="toggle-button-settings-2" class="button-1" href="javascript:void[0]" onclick="showSettings()"><-- Back</a>
+                <h1>Settings</h1>
+                <hr>
+                <br>
+                <h3 style="margin-bottom: 30px;">Gameplay</h3>
+                <h4>Computer Mode</h4>
+                <div class="slider-input-container-active" id="aimode-checkbox" onclick="sliderClick(this)" data-toggle="true">
+                </div>
+                <hr style="margin-top: 40px;">
+                <h1>Stats</h1>
+                <h4>Player 1 Wins: <span id="player-1-wins" style="color: rgb(254,215,102); color: var(--grad-flat)">0</span></h4>
+                <h4>Player 2 / Computer Wins: <span id="player-2-wins" style="color: rgb(254,215,102); color: var(--grad-flat)">0</span></h4>
+                <h4>Draw / No Winner: <span id="no-winners-info" style="color: rgb(254,215,102); color: var(--grad-flat)">0</span></h4>
+                <h4>Turns Elapsed (Last Round): <span id="turns-elapsed-last-round-info" style="color: rgb(254,215,102); color: var(--grad-flat)">0</span></h4>
+                <h4>Turns Elapsed: <span id="turns-elapsed-total-info" style="color: rgb(254,215,102); color: var(--grad-flat)">0</span></h4>>
+            </div>
+            <div class="other" id="toggle-button-settings-1">
+                <a class="button-1" href="javascript:void[0]" onclick="showSettings()">Back > </a>
+            </div>
+        </div>
+    </div>
+
+    <br style="margin-top: 5px;">
+    <div class="centering-container">
+        <div class="inner-container">
+            <span id="title">
+                <h1>Tic Tac Toe</h1>
+                <hr>
+                <br>
+            </span>
+            <br id="toggle-br1">
+            <div id="game-container">
+                <div id="button-container">
+                    <button data-button="1" data-cell id="b_1" class="uninteracted-button" onclick="buttonClicked(this.dataset.button)"></button>
+                    <button data-button="2" data-cell id="b_2" class="uninteracted-button" onclick="buttonClicked(this.dataset.button)"></button>
+                    <button data-button="3" data-cell id="b_3" class="uninteracted-button" onclick="buttonClicked(this.dataset.button)"></button>
+                    <button data-button="4" data-cell id="b_4" class="uninteracted-button" onclick="buttonClicked(this.dataset.button)"></button>
+                    <button data-button="5" data-cell id="b_5" class="uninteracted-button" onclick="buttonClicked(this.dataset.button)"></button>
+                    <button data-button="6" data-cell id="b_6" class="uninteracted-button" onclick="buttonClicked(this.dataset.button)"></button>
+                    <button data-button="7" data-cell id="b_7" class="uninteracted-button" onclick="buttonClicked(this.dataset.button)"></button>
+                    <button data-button="8" data-cell id="b_8" class="uninteracted-button" onclick="buttonClicked(this.dataset.button)"></button>
+                    <button data-button="9" data-cell id="b_9" class="uninteracted-button" onclick="buttonClicked(this.dataset.button)"></button>
+                </div>
+            </div>
+        </div>
+        <br style="margin-top: 25px;">
+    </div>
+</body>
+</html>

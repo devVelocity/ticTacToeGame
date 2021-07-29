@@ -1,0 +1,792 @@
+:root{
+    --background: rgb(8,8,8);
+    /* --background: var(--color-3-darker); */
+    --text-colour: rgb(255,255,255);
+    --color-1: #272727;
+    --color-2: #FED766;
+    --color-2-dark: rgb(131, 111, 50);
+    --color-3: #00b79f;
+    --color-3-dark: #006658;
+    --color-3-darker: #080f0d;
+    --color-4: #696773;
+    --color-5: #EFF1F3;
+
+    --gray-1: rgb(0,0,0);
+    --gray-1a: rgb(10,10,10);
+    --gray-2: rgb(50,50,50);
+    --gray-3: rgb(75,75,75);
+    --gray-4: rgb(100,100,100);
+    --gray-5: rgb(150,150,150);
+    --gray-6: rgb(200,200,200);
+    --white: rgb(255,255,255);
+    --white-faded: rgba(255,255,255,0.7);
+
+    --grad-flat: rgb(254,215,102);
+    --grad-gradient: linear-gradient(90deg, rgba(254,215,102,1) 0%, rgba(0,159,183,1) 100%);
+    
+    --circle-win: rgb(254, 215, 102,0.3);
+    --cross-win: rgb(0, 159, 183,0.3);
+
+    --slider-toggle-on: #006658;
+    --slider-toggle-off: var(--gray-3);
+}
+
+body{
+    width: auto;
+    height: auto;
+    min-height: 100vh;
+    margin: 0;
+    background: rgb(15,15,15);
+    background: var(--background);
+    overflow: hidden;
+    overflow-y: scroll;
+ }
+
+h1,h2{
+    color: rgb(255,255,255);
+    color: var(--text-colour);
+    font-family: "Press Start 2P", serif;
+    font-weight: 10000;
+}
+
+h3,h4,h5,h6,p{
+    color: rgb(255,255,255);
+    color: var(--text-colour);
+    font-family: "Press Start 2P", serif;
+    font-weight: 100; 
+    margin-top: 10px; margin-bottom: 20px;
+}
+
+.centering-container{
+    display: grid;
+    justify-items: center;
+    width: calc(100% - 50px);
+    height: 90vh;
+    margin-left: 25px;
+    padding-bottom: 20px;
+    filter: blur(0px);
+    transition: 0.25s filter ease-in-out;
+}
+
+.centering-container h1, .centering-container h3{
+    width: 100%;
+    text-align: center;
+}
+
+hr{
+    height: 3px;
+    outline: 0px;
+    border: 0px;
+    background: var(--grad-flat);
+    background: var(--grad-gradient);
+    border-radius: 25px;
+}
+
+#title{
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+#title hr{
+    height: 5px;
+    width: 50%;
+}
+
+.inner-container{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    height: 90vh;
+    width: 100%;
+}
+
+#game-container{
+    width: 50%;
+    height: 90vh;
+}
+
+#button-container{
+    width: 100%;
+    display: grid;
+    gap: 2rem;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    height: 100%;
+}
+
+@media screen and (max-width: 1200px){
+    #game-container{
+        width: 100%;
+    }
+    #button-container{
+        gap: 1.3rem;
+    }
+    #title hr{
+        width: 80%;
+    }
+}
+
+#toggle-br1{
+    margin-top: 25px;
+}
+
+#button-container button{
+    appearance: none;
+    width: 100%;
+    height: 100%;
+    border: 0px;
+    outline: 0px;
+    color: rgba(0,0,0,0);
+    font-family: "Press Start 2P";
+    font-size: clamp(20px,10vw,90px);
+}
+
+#button-container .uninteracted-button{
+    background: var(--gray-2);
+    transition: 0.1s box-shadow ease-in-out;
+}
+
+#button-container .dead-button{
+    background: var(--gray-2);
+    transition: 0.1s box-shadow ease-in-out;
+}
+
+#button-container .uninteracted-button:hover{
+    box-shadow: 0px 0px 10px 5px var(--white-faded);
+    cursor: pointer;
+}
+
+@keyframes fade-in-circle{
+    from{
+        background: var(--gray-2);
+    }
+    to{
+        background: var(--color-2);
+    }
+}
+
+@keyframes fade-in-circle-text{
+    from{
+        color: rbga(0,0,0,0);
+    }
+    to{
+        color: var(--color-2-dark);
+    }
+}
+
+@keyframes fade-in-cross{
+    from{
+        background: var(--gray-2);
+    }
+    to{
+        background: var(--color-3);
+    }
+}
+
+@keyframes fade-in-cross-text{
+    from{
+        color: rbga(0,0,0,0);
+    }
+    to{
+        color: var(--color-3-dark);
+    }
+}
+
+#button-container .circle-button{
+    background: var(--color-2);
+    color: var(--color-2-dark);
+    
+    animation: fade-in-circle;
+    animation-duration: 0.25s;
+    animation-iteration-count: 1;
+    animation-timing-function: ease-in-out;
+    animation-fill-mode: forwards;
+}
+
+#button-container .circle-button::after{
+    content: "O";
+    color: var(--color-2-dark);
+    font-family: "Press Start 2P";
+    font-size: clamp(20px,10vw, 90px);
+
+    animation: fade-in-circle-text;
+    animation-duration: 0.25s;
+    animation-iteration-count: 1;
+    animation-timing-function: ease-in-out;
+    animation-fill-mode: forwards;
+}
+
+
+#button-container .cross-button{
+    background: var(--color-3);
+    color: var(--color-3-dark);
+    transition: 0.2s background ease-in-out;
+
+    animation: fade-in-cross;
+    animation-duration: 0.25s;
+    animation-iteration-count: 1;
+    animation-timing-function: ease-in-out;
+    animation-fill-mode: forwards;
+}
+
+#button-container .cross-button::after{
+    content: "X";
+    color: var(--color-3-dark);
+    font-family: "Press Start 2P";
+    font-size: clamp(20px,10vw, 90px);
+
+    animation: fade-in-cross-text;
+    animation-duration: 0.25s;
+    animation-iteration-count: 1;
+    animation-timing-function: ease-in-out;
+    animation-fill-mode: forwards;
+}
+
+@keyframes win-expand{
+    0%{
+        transform: scale(1);
+    }
+    50%{
+        transform: scale(1.05);
+    }
+    100%{
+        transform: scale(1);
+    }
+}
+
+#button-container .circle-win{
+    background: var(--color-2);
+    box-shadow: 0px 0px 20px 5px var(--circle-win);
+
+    animation: win-expand;
+    animation-duration: 1s;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
+}
+
+#button-container .circle-win::after{
+    content: "O";
+    color: var(--color-2-dark);
+    font-family: "Press Start 2P";
+    font-size: clamp(20px,10vw, 90px);
+
+    animation: fade-in-circle-text;
+    animation-duration: 0.25s;
+    animation-iteration-count: 1;
+    animation-timing-function: ease-in-out;
+    animation-fill-mode: forwards;
+}
+
+#button-container .cross-win{
+    background: var(--color-3);
+    box-shadow: 0px 0px 20px 5px var(--cross-win);
+
+    animation: win-expand;
+    animation-duration: 1s;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
+}
+
+#button-container .cross-win::after{
+    content: "X";
+    color: var(--color-3-dark);
+    font-family: "Press Start 2P";
+    font-size: clamp(20px,10vw, 90px);
+
+    animation: fade-in-cross-text;
+    animation-duration: 0.25s;
+    animation-iteration-count: 1;
+    animation-timing-function: ease-in-out;
+    animation-fill-mode: forwards;
+}
+
+.main-screen-outer-container{
+    background: rgba(0,0,0,0.5);
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    z-index: 5;
+    opacity: 1;
+    transition: 0.25s opacity ease-in-out;
+}
+
+
+.main-screen-container{
+    position: absolute;
+    z-index: 5;
+    width: 100%;
+    height: 100%;
+    margin-top: 0px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: 0.5s ease-in-out;
+    transition-property: transform, opacity, margin;
+    
+}
+
+.main-screen-settings{
+    width: 100%;
+    height: 100%;
+    margin-top: 0px;
+    background: var(--gray-1a);
+    position: absolute;
+    z-index: 5;
+    transition: 0.7s ease-in-out;
+    transition-property: margin,transform;
+    transform: translateX(100%);
+}
+
+
+.main-screen-box{
+    width: 40%;
+    height: auto;
+    min-height: 50%;
+    background: var(--gray-1a);
+    position: relative;
+    overflow: visible;
+    transition: 0.7s ease-in-out;
+    transition-property: margin,transform,opacity;
+}
+
+
+/* @supports not (not (transform:translate())){
+    .main-screen-container{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .main-screen-box{
+        position: relative;
+        left: 0%;
+        top: 0%;
+        transform: translate(0%,0%);
+    }
+} */
+
+.main-screen-outer-container{
+    height: 100%;
+    width: 100%;
+}
+
+
+@media screen and (max-width: 1050px){
+    .main-screen-box{
+        width: 60%;
+        height: 70%;
+    }
+}
+
+@media screen and (max-width: 800px){
+    .main-screen-box{
+        width: 100%;
+        height: 100%;
+        margin-top: 0px;
+    }
+    .main-screen-box .main-screen-box-interior{
+        border-radius: 0px;
+    }
+    .main-screen-box span{
+        opacity: 0;
+    }
+    .main-screen-outer-container{
+        background: var(--gray-1a)
+    }
+}
+
+.main-screen-box span{
+    background: var(--grad-gradient);
+    width: 105%;
+    position: absolute;
+    height: 105%;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    margin-left: -2.5%;
+    margin-top: -2.5%;
+    filter: blur(20px);
+}
+
+.main-screen-box-interior{
+    z-index: 3;
+    background: var(--gray-1a);
+    height: 100%;
+    min-height: 100%;
+    width: 100%;
+    position: absolute;     
+    border-radius: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.main-screen-box-interior h1,h3{
+    text-align: center;
+    width: 80%;
+}
+
+.main-screen-box-interior h3{
+    font-size: clamp(16px,3vw,16px);
+}
+
+.main-screen-box-interior hr{
+    width: 50%;
+}
+
+#main-screen-box-gameplay{
+    opacity: 0;
+    pointer-events: none;
+}
+
+#main-screen-ending-screen{
+    opacity: 0;
+    pointer-events: none;
+}
+
+.button-1{
+    display: inline-block;
+    font-family: "Press Start 2P";
+    color: var(--white);
+    text-align: center;
+    background: var(--gray-2);
+    padding: 1.3rem;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border-radius: 25px;
+    word-wrap: break-word;
+    transition: 0.25s ease-in-out;
+    transition-property: background,color;
+    text-decoration: none
+}
+
+.button-1:hover{
+    background: var(--grad-flat);
+    color: var(--gray-1);
+}
+
+.main-screen-box-interior a{
+    width: 50%;
+    min-width: 200px;
+}
+
+.main-screen-settings .button-1{
+    position: relative;
+    right: 20px;
+    margin-left: 20px;
+    margin-top: 5px;
+    margin-bottom: 10px;
+}
+
+.main-screen-settings > div{
+    display: flex;
+}
+
+.main-screen-settings-container{
+    width: 95%;
+    height: 100%;
+    margin-left: 2.5%;
+}
+
+.main-screen-settings .main-screen-settings-back-container{
+    width: 30%;
+    display: flex;
+    align-items: center;
+    justify-content: right;
+    margin-left: 5%;
+}
+
+.main-screen-settings-container .other a{
+    padding-left: 4rem;
+    padding-right: 4rem;
+    padding-top: 1.3rem;
+    padding-bottom: 1.3rem;
+}
+
+.main-screen-settings-content{
+    margin-left: 10px;
+}
+
+.main-screen-settings-content h1{
+    text-align: left;
+    margin-left: 0px;
+    font-size: clamp(24px,3vw, 50px);
+}
+
+.main-screen-settings-content h3{
+    text-align: left;
+    margin-left: 0px;
+    font-size: clamp(24px,3vw, 30px);
+}
+
+
+.main-screen-settings-container .other{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 20%;
+    height: 15vw;
+    max-height: 260px;
+}
+
+.main-screen-settings-container .other a{
+    margin: 0;
+    right: 0;
+}
+
+
+.back-button-container-outside{
+
+}
+
+#main-screen-inner-container{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    transition: 0.7s transform ease-in-out;
+}
+
+#main-screen-selection{
+    opacity: 0;
+    pointer-events: none;
+    display: none;
+}
+
+.back-button-container-outside .button-1{
+    padding-left: 2rem;
+    padding-right: 2rem;
+    padding-top: 1rem;
+    padding-bottom: 1rem; 
+    position: absolute;
+    top: 0%;
+    left: 0%;
+    word-wrap: normal;
+    margin-left: 0px;
+    width: 150px;
+    height: 25px;
+}
+
+#toggle-button-settings-2{
+    opacity: 0;
+    pointer-events: none;
+    display: none;
+}
+
+@media screen and (max-width: 900px){
+    #toggle-button-settings-1{
+        opacity: 0;
+        pointer-events: none;
+    }
+    #toggle-button-settings-2{
+        opacity: 1;
+        pointer-events: all;
+        display: initial;
+    }
+}
+
+
+.main-screen-settings-content{
+    width: 100%;
+    margin-right: 10%;
+    display: flex;
+    flex-direction: column;
+}
+
+.main-screen-settings-content hr{
+    width: 100%;
+}
+
+#toggle-button-settings-2{
+    margin-top: 25px;
+    margin-bottom: 25px
+}
+
+
+@keyframes slider-off{
+    from{
+        left: calc(100% - 35px);
+    }
+    to{
+        left: 5px
+    }
+}
+
+@keyframes slider-background-off{
+    from{
+        background: #006658;
+        background: var(--slider-toggle-on);
+    }
+    to{
+        background: gray;
+        background: var(--gray-3);
+    }
+}
+
+@keyframes slider-on{
+    from{
+        left: 5px;
+    }
+    to{
+        left: calc(100% - 35px)
+    }
+}
+
+@keyframes slider-background-on{
+    from{
+        background: gray;
+        background: var(--gray-3);
+    }
+    to{
+        background: #006658;
+        background: var(--slider-toggle-on);
+    }
+}
+
+
+.slider-input-container{
+    background: gray;
+    background: var(--gray-3);
+    width: 100px;
+    height: 40px;
+    border-radius: 25px;
+    position: relative;
+
+    
+    animation: slider-background-off;
+    animation-duration: 0.2s;
+    animation-iteration-count: 1;
+    animation-timing-function: ease-out;
+    animation-fill-mode: forwards;
+}
+
+.slider-input-container::after{
+    content: ' ';
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    border-radius: 25px;
+    background: white;
+    background: var(--white);
+    top: 5px;
+    left: 5px;
+
+    animation: slider-off;
+    animation-duration: 0.3s;
+    animation-iteration-count: 1;
+    animation-timing-function: ease-out;
+    animation-fill-mode: forwards;
+}
+
+.slider-input-container-active{
+    background: #006658;
+    background: var(--slider-toggle-on);
+    width: 100px;
+    height: 40px;
+    border-radius: 25px;
+    position: relative;
+
+    animation: slider-background-on;
+    animation-duration: 0.2s;
+    animation-iteration-count: 1;
+    animation-timing-function: ease-out;
+    animation-fill-mode: forwards;
+}
+
+.slider-input-container-active::after{
+    content: ' ';
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    border-radius: 25px;
+    background: white;
+    background: var(--white);
+    top: 5px;
+    left: 5px;
+
+    animation: slider-on;
+    animation-duration: 0.3s;
+    animation-iteration-count: 1;
+    animation-timing-function: ease-out;
+    animation-fill-mode: forwards;
+}
+
+.selection-wrapper{
+    width: calc(100% - 40px);
+    height: 300px;
+    display: flex;
+    padding-bottom: 30px;
+}
+
+.selection-wrapper button{
+    width: 50%;
+    margin-left: 10px; margin-right: 10px;
+    height: 100%;
+    background: rgb(50,50,50);
+    min-width: 0;
+    outline: 0;
+    border: 0;
+}
+
+.selection-wrapper button:hover{
+    cursor: pointer;
+}
+
+
+.selection-wrapper > button:nth-child(1){
+    background: var(--color-2);
+    text-decoration: none;
+    position: relative;
+}
+
+.selection-wrapper > button:nth-child(1)::after{
+    content: "O";
+    color: var(--color-2-dark);
+    font-family: "Press Start 2P";
+    font-size: clamp(50px,10vw, 90px);
+    text-decoration: none;
+    width: 100%;
+    left: 0;
+    height: auto;
+    position: absolute;
+    text-align: center;
+    top: 50%;
+    transform: translateY(-50%);
+    
+}
+
+
+.selection-wrapper > button:nth-child(2){
+    background: var(--color-3);
+    text-decoration: none;
+    position: relative;
+}
+
+.selection-wrapper > button:nth-child(2)::after{
+    content: "X";
+    color: var(--color-3-dark);
+    font-family: "Press Start 2P";
+    font-size: clamp(50px,10vw, 90px);
+    text-decoration: none;
+    width: 100%;
+    height: auto;
+    position: absolute;
+    text-align: center;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+    
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
