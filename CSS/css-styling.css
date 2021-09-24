@@ -347,6 +347,7 @@ hr{
     overflow: visible;
     transition: 0.7s ease-in-out;
     transition-property: margin,transform,opacity;
+    max-width: 500px
 }
 
 
